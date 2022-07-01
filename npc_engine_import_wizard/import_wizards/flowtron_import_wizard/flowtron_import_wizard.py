@@ -15,6 +15,8 @@ from npc_engine.services.tts.flowtron.text import text_to_sequence
 def try_to_cuda(tensor):
     """Try to cuda."""
     if torch.cuda.is_available():
+        if isinstance(tensor, list):
+            return [t.cuda() for t in tensor]
         return tensor.cuda()
     else:
         return tensor
