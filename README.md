@@ -27,5 +27,17 @@ It will also omit import wizards that lack their extras installed
 (i.e. with `npc-engine-import-wizard[transformers]` you will only see 
 import wizards for [transformers](https://huggingface.co/docs/transformers/main/en/index) library).
 
-e.g. 
+```
+1. HfChatbotImportWizard
+        ImportWizard for converting HF transformer models into text gen services.
+2. HfClassifierImportWizard
+        ImportWizard for converting HF classification transformer models.
+3. HfSimilarityImportWizard
+        ImportWizard for converting HF semantic similarity transformer models.
+```
+
+You can also list all available import wizards which will also give you detailed readme for each one.
+
+```
+npc-engine-import-wizard list-wizards
 ```
