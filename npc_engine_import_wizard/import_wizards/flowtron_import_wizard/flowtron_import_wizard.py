@@ -12,16 +12,6 @@ from npc_engine_import_wizard.import_wizards.base_import_wizard import ImportWiz
 from npc_engine.services.tts.flowtron.text import text_to_sequence
 
 
-def try_to_cuda(tensor):
-    """Try to cuda."""
-    if torch.cuda.is_available():
-        if isinstance(tensor, list):
-            return [t.cuda() for t in tensor]
-        return tensor.cuda()
-    else:
-        return tensor
-
-
 class FlowtronImportWizard(ImportWizard):
     """ImportWizard for the Flowtron architecture inference.
 
@@ -86,7 +76,7 @@ class FlowtronImportWizard(ImportWizard):
         """
 
         # load waveglow
-        waveglow = try_to_cuda(torch.load(waveglow_path)["model"]).eval()
+        waveglow = torch.load(waveglow_path)["model"].eval()
         for k in waveglow.convinv:
             k.float()
         waveglow.eval()
@@ -95,7 +85,7 @@ class FlowtronImportWizard(ImportWizard):
             model_config = json.load(f)
 
         # load flowtron
-        model = try_to_cuda(Flowtron(**model_config["model_config"]))
+        model = Flowtron(**model_config["model_config"])
         try:
             state_dict = torch.load(flowtron_path, map_location="cpu")["state_dict"]
         except KeyError:
@@ -115,12 +105,10 @@ class FlowtronImportWizard(ImportWizard):
         except Exception:
             self.n_frames = 512
 
-        speaker_vecs = try_to_cuda(torch.zeros([1, 1], dtype=torch.long))
-        text = try_to_cuda(torch.LongTensor(text_to_sequence(text)).view([1, -1]))
+        speaker_vecs = torch.zeros([1, 1], dtype=torch.long)
+        text = torch.LongTensor(text_to_sequence(text)).view([1, -1])
         with torch.no_grad():
-            residual = try_to_cuda(
-                torch.FloatTensor(1, 80, self.n_frames).normal_() * sigma
-            )
+            residual = torch.FloatTensor(1, 80, self.n_frames).normal_() * sigma
 
             encoder = FlowtronEncoder(
                 model.embedding, model.speaker_embedding, model.encoder
@@ -144,10 +132,7 @@ class FlowtronImportWizard(ImportWizard):
             backward_flow = model.backward_flow.ar_step
             residual = residual.permute(2, 0, 1)
             residual_o, hidden_att, hidden_lstm = init_states(residual)
-            residual_o = try_to_cuda(residual_o)
-            hidden_att = try_to_cuda(hidden_att)
-            hidden_lstm = try_to_cuda(hidden_lstm)
-
+            
             (
                 residual_o,
                 _,
