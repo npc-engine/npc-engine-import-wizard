@@ -46,7 +46,7 @@ requirements_flowtron_tts = [
 
 requirements_transformers = ["torch>=1.0.0,<2.0.0", "transformers>=4.0.0,<5.0.0"]
 
-requirements_espnet = ["torch>=1.0.0,<2.0.0", "espnet>=1.0.0,<2.0.0"]
+requirements_espnet = ["torch>=1.0.0,<2.0.0", "espnet"]
 
 all = requirements_flowtron_tts + requirements_transformers + requirements_espnet
 
