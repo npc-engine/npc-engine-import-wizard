@@ -1,0 +1,16 @@
+# .coveragerc to control coverage.py
+[run]
+omit =
+    */venv/*
+    */tests/*
+    */docs/*
+    */dist/*
+    setup.py
+    scratch*.py    
+    */.tox/*
+
+[html]
+directory=./htmlcov
+
+[report]
+fail_under=80
