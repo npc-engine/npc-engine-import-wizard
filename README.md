@@ -41,3 +41,18 @@ You can also list all available import wizards which will also give you detailed
 ```
 npc-engine-import-wizard list-wizards
 ```
+
+## Supported libraries
+
+- [🤗 Transformers](https://huggingface.co/docs/transformers/main/en/index)  
+There are three import wizards for transformers available for different tasks:
+```
+1. HfChatbotImportWizard
+        ImportWizard for converting HF transformer models into text gen services.
+2. HfClassifierImportWizard
+        ImportWizard for converting HF classification transformer models.
+3. HfSimilarityImportWizard
+        ImportWizard for converting HF semantic similarity transformer models.
+```
+- NVIDIA's [Flowtron](https://github.com/NVIDIA/flowtron) + [Waveglow](https://github.com/NVIDIA/waveglow) import wizard for TTS.
+- [ESPNet2](https://github.com/espnet/espnet) import wizard thanks to the [espnet_onnx](https://github.com/Masao-Someki/espnet_onnx) project.
