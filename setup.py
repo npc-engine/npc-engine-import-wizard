@@ -15,7 +15,8 @@ with open("README.md", encoding="utf-8") as f:
 # Get the base version from the library.  (We'll find it in the `version.py`
 # file in the src directory, but we'll bypass actually loading up the library.)
 vspec = importlib.util.spec_from_file_location(
-    "version", str(Path(__file__).resolve().parent / "npc_engine_import_wizard" / "version.py")
+    "version",
+    str(Path(__file__).resolve().parent / "npc_engine_import_wizard" / "version.py"),
 )
 vmod = importlib.util.module_from_spec(vspec)
 vspec.loader.exec_module(vmod)
@@ -23,9 +24,7 @@ version = getattr(vmod, "__version__")
 
 # Define requirements here, dont forget to add them to the extras_require
 
-requirements = [
-    "npc-engine[cpu]>=0.0.1,<1.0.0"
-]
+requirements = ["npc-engine[cpu]>=0.0.1,<1.0.0"]
 
 requirements_dev = [
     "pip-check-reqs>=2.0.1,<3",
@@ -45,15 +44,9 @@ requirements_flowtron_tts = [
     "tensorboardX",
 ]
 
-requirements_transformers = [
-    "torch>=1.0.0,<2.0.0", 
-    "transformers>=4.0.0,<5.0.0"
-]
+requirements_transformers = ["torch>=1.0.0,<2.0.0", "transformers>=4.0.0,<5.0.0"]
 
-requirements_espnet = [
-    "torch>=1.0.0,<2.0.0",
-    "espnet>=1.0.0,<2.0.0"
-]
+requirements_espnet = ["torch>=1.0.0,<2.0.0", "espnet>=1.0.0,<2.0.0"]
 
 all = requirements_flowtron_tts + requirements_transformers + requirements_espnet
 
@@ -71,7 +64,7 @@ setup(
         "flowtron-tts": requirements_flowtron_tts,
         "transformers": requirements_transformers,
         "espnet": requirements_espnet,
-        "all": all
+        "all": all,
     },
     entry_points="""
     [console_scripts]

@@ -28,7 +28,7 @@ class FlowtronImportWizard(ImportWizard):
     Code:
     https://github.com/NVIDIA/flowtron
 
-    Import wizard expects flowtron and waveglow checkpoints as well as 
+    Import wizard expects flowtron and waveglow checkpoints as well as
     https://github.com/NVIDIA/flowtron project setup in the same directory.
     """
 

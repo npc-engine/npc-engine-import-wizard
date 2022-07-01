@@ -36,7 +36,7 @@ class ImportWizard(ABC):
     @classmethod
     def long_description(cls) -> str:
         """Print the exporter."""
-        return cls.__name__ + "\n\t" + '\n\t'.join(cls.__doc__.split('\n'))
+        return cls.__name__ + "\n\t" + "\n\t".join(cls.__doc__.split("\n"))
 
     @abstractmethod
     def convert(self, model_path: str, output_path: str):

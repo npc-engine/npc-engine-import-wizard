@@ -6,7 +6,9 @@ import zmq
 import json
 import click
 from npc_engine.service_clients import ControlClient, SimilarityClient
-from npc_engine_import_wizard.import_wizards.base_hf_import_wizard import BaseHfImportWizard
+from npc_engine_import_wizard.import_wizards.base_hf_import_wizard import (
+    BaseHfImportWizard,
+)
 
 
 class HfSimilarityImportWizard(BaseHfImportWizard):

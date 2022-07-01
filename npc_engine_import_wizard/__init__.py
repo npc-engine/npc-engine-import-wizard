@@ -8,8 +8,12 @@ from .version import __version__, __release__
 
 
 from loguru import logger
+
 try:
-    from npc_engine_import_wizard.import_wizards.hf_chatbot_import_wizard import HfChatbotImportWizard
+    from npc_engine_import_wizard.import_wizards.hf_chatbot_import_wizard import (
+        HfChatbotImportWizard,
+    )
+
     logger.info("HfChatbotImportWizard is available")
 except ImportError as e:
     raise e
@@ -17,7 +21,8 @@ except ImportError as e:
 try:
     from npc_engine_import_wizard.import_wizards.hf_classifier_import_wizard import (
         HfClassifierImportWizard,
-    )    
+    )
+
     logger.info("HfClassifierImportWizard is available")
 except ImportError:
     pass
@@ -26,14 +31,16 @@ try:
     from npc_engine_import_wizard.import_wizards.hf_similarity_import_wizard import (
         HfSimilarityImportWizard,
     )
+
     logger.info("HfSimilarityImportWizard is available")
 except ImportError:
     pass
 
-try:    
+try:
     from npc_engine_import_wizard.import_wizards.flowtron_import_wizard import (
         FlowtronImportWizard,
     )
+
     logger.info("FlowtronImportWizard is available")
 except ImportError:
     pass

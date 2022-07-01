@@ -1,6 +1,8 @@
 """Exporter implementation for the Huggingface text generation models."""
 import time
-from npc_engine_import_wizard.import_wizards.base_hf_import_wizard import BaseHfImportWizard
+from npc_engine_import_wizard.import_wizards.base_hf_import_wizard import (
+    BaseHfImportWizard,
+)
 from jinja2schema import infer, to_json_schema
 import click
 import yaml
