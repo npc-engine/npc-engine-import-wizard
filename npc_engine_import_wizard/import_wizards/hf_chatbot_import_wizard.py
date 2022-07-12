@@ -41,9 +41,19 @@ class HfChatbotImportWizard(BaseHfImportWizard):
         """Create the config for the model."""
         config_dict = {}
         config_dict["model_type"] = self.get_model_name()
-        config_dict["template_string"] = click.edit(
+        config_dict["context_template"] = click.edit(
             "{#\n"
-            + "Please create a template that will map context fields to prompt\n"
+            + "Please create a template that will map context fields to context prompt\n"
+            + "This template render will be concatenated before history template and won't be cropped\n"
+            + "This should include things like personas and location.\n"
+            + "Any context fields defined here must be then sent over the request via json as context arg\n"
+            + "See Jinja docs for template design https://jinja.palletsprojects.com/en/3.1.x/templates/# \n"
+            + "#}\n"
+        )
+        config_dict["history_template"] = click.edit(
+            "{#\n"
+            + "Please create a template that will map context fields to history prompt\n"
+            + "This template will be concatenated after context and will be cropped\n"
             + "Any context fields defined here must be then sent over the request via json as context arg\n"
             + "See Jinja docs for template design https://jinja.palletsprojects.com/en/3.1.x/templates/# \n"
             + "this example expects a list of strings named history\n"
