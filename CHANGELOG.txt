@@ -1,2 +1,2 @@
 Minor:   
-- Migrated from npc-engine to npc-engine-import-wizard
+- Updated import wizard for text generation to produce two templates: for context that is not cropped and history that is.
