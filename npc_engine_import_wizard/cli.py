@@ -6,7 +6,9 @@ import os
 import logging
 
 
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.CRITICAL)
+logging.disable(logging.CRITICAL)
+
 import shutil
 from npc_engine.services.utils.config import (
     get_model_type_name,
@@ -37,7 +39,7 @@ def cli(verbose: bool):
         )
     else:
         logger.add(
-            sys.stdout, format="{time} {level} {message}", level="WARNING", enqueue=True
+            sys.stdout, format="{time} {level} {message}", level="ERROR", enqueue=True
         )
 
 
