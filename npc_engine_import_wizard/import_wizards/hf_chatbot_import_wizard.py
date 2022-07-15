@@ -41,27 +41,49 @@ class HfChatbotImportWizard(BaseHfImportWizard):
         """Create the config for the model."""
         config_dict = {}
         config_dict["model_type"] = self.get_model_name()
-        config_dict["context_template"] = click.edit(
-            "{#\n"
-            + "Please create a template that will map context fields to context prompt\n"
-            + "This template render will be concatenated before history template and won't be cropped\n"
-            + "This should include things like personas and location.\n"
-            + "Any context fields defined here must be then sent over the request via json as context arg\n"
-            + "See Jinja docs for template design https://jinja.palletsprojects.com/en/3.1.x/templates/# \n"
-            + "#}\n"
+        two_prompt_templates = click.prompt(
+            "Add context field to model prompt that won't be cropped?"
+            + "\nIt fixes model loosing context after some number of lines"
+            + " but it's not backward compatible to < 0.1.4",
+            default=True,
         )
-        config_dict["history_template"] = click.edit(
-            "{#\n"
-            + "Please create a template that will map context fields to history prompt\n"
-            + "This template will be concatenated after context and will be cropped\n"
-            + "Any context fields defined here must be then sent over the request via json as context arg\n"
-            + "See Jinja docs for template design https://jinja.palletsprojects.com/en/3.1.x/templates/# \n"
-            + "this example expects a list of strings named history\n"
-            + "#}\n"
-            + "{% for line in history %}\n"
-            + "{{ line }}\n"
-            + "{% endfor -%}"
-        )
+        if two_prompt_templates:
+            config_dict["context_template"] = click.edit(
+                "{#\n"
+                + "Please create a template that will map context fields to context prompt\n"
+                + "This template render will be concatenated before history template and won't be cropped\n"
+                + "This should include things like personas and location.\n"
+                + "Any context fields defined here must be then sent over the request via json as context arg\n"
+                + "See Jinja docs for template design https://jinja.palletsprojects.com/en/3.1.x/templates/# \n"
+                + "#}\n",
+                require_save=False,
+            )
+            config_dict["history_template"] = click.edit(
+                "{#\n"
+                + "Please create a template that will map context fields to history prompt\n"
+                + "This template will be concatenated after context and will be cropped\n"
+                + "Any context fields defined here must be then sent over the request via json as context arg\n"
+                + "See Jinja docs for template design https://jinja.palletsprojects.com/en/3.1.x/templates/# \n"
+                + "this example expects a list of strings named history\n"
+                + "#}\n"
+                + "{% for line in history %}\n"
+                + "{{ line }}\n"
+                + "{% endfor -%}",
+                require_save=False,
+            )
+        else:
+            config_dict["template_string"] = click.edit(
+                "{#\n"
+                + "Please create a template that will map context fields to prompt\n"
+                + "Any context fields defined here must be then sent over the request via json as context arg\n"
+                + "See Jinja docs for template design https://jinja.palletsprojects.com/en/3.1.x/templates/# \n"
+                + "this example expects a list of strings named history\n"
+                + "#}\n"
+                + "{% for line in history %}\n"
+                + "{{ line }}\n"
+                + "{% endfor -%}",
+                require_save=False,
+            )
         config_dict["min_length"] = click.prompt(
             "Minimum generation length:", type=int, default=3
         )
