@@ -132,7 +132,7 @@ class FlowtronImportWizard(ImportWizard):
             backward_flow = model.backward_flow.ar_step
             residual = residual.permute(2, 0, 1)
             residual_o, hidden_att, hidden_lstm = init_states(residual)
-            
+
             (
                 residual_o,
                 _,
