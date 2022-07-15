@@ -1,2 +1,2 @@
 Minor:   
-- Updated import wizard for text generation to produce two templates: for context that is not cropped and history that is.
+- Add backward compatible option for import wizard for text generation.
